@@ -1,4 +1,10 @@
 language: node_js
- node_js: node
- services:
-     - mongodb
+node_js: node
+services: mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: tqq5+5UfT8QZKjvVNhaLk2uIhB9t6AwFmDEh12C8FbqaUpTixkbFVsJVDWzRfYpqP20aho2+zKYZPQ96jzr6W7b+62XgQFNyQN/LVcVlylNcsDBy944o3hza+eVoAuTp1I+svGOMtvPzbjvurAcxwEOUrvLGyyDYqHHuyScE/HFILNnt37objLce7W8NeaXo6yHwibjNrN4Qy9811aWENIqMaeOHseY9vGoeGifjp6qToeUi+HmK2tPNkDFvvP22/sDMK5iIWhdL15aL/kZ2vLwKseJRl+iGueoIVuLSk6wczTApmgAW+1BeOZWcuWzC9GzSu9r9JWSVGLvAcwHPnO1dSBBi1JpeqenQWbl4yc16SUpBz/CRZJPpPek2E5h6xNXWTRi0YuF/mQpVDjjQAyneyT9vF6vLJL3Yn3uBa8WxofXFH+tOqJ6tRxUrLfcIZxlOj0xPUFaMDplZYWiLH79J5U6lmIFLH/dSoXT90CD+2rpY7WQgT6l6uOy1KfcJCDJWtivl+pqMUcmjAL9pp6rle9sy05rZm/vdqq6jkUkJ7WUJs8vAC/SbvhcJG7HHM5KmhNgIkzy1ZRkcCCBMWqHMP823latLe6JG4lhmB3s6see4QDYgr0NxWTbmqcDpcD/bkiFbZo8MgRVnpcBaTr0A8L/kZeZR4SdJBdb82RU=
+  app: sleepy-meadow-51741
+  on:
+    repo: lizzitnik/home-api
