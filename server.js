@@ -11,14 +11,16 @@ mongoose.Promise = global.Promise
 
 const weatherRouter = require('./routers/weatherRouter')
 const todoRouter = require('./routers/todoRouter')
+const quoteRouter = require('./routers/quoteRouter')
 const userRouter = require('./routers/userRouter')
 const authRouter = require('./routers/authRouter')
 const { localStrategy, jwtStrategy } = require('./routers/authStrategies');
 
 app.use(bodyParser.json())
 app.use(weatherRouter)
-app.use(todoRouter)
-app.use(userRouter)
+app.use('/todos', todoRouter)
+app.use('/users', userRouter)
+app.use('/quote', quoteRouter)
 app.use('/auth', authRouter)
 
 passport.use(localStrategy);
@@ -49,25 +51,6 @@ app.get('/protected', jwtAuth, (req, res) => {
     data: 'rosebud'
   });
 });
-
-// app.get('/' (req, res) => {
-//   const QUOTES_URL = 'https://random-quote-generator.herokuapp.com/api/quotes/random'
-//   axios(`${QUOTES_URL}`, {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/json"
-//     }
-//   })
-//   .then(res => {
-//     return {
-//       quote: res.data.quote,
-//       author: res.data.author
-//     }
-//   })
-//   .then(key => {
-//     fetchWeather(res, key)
-//   })
-// })
 
 app.use('*', (req, res) => {
   return res.status(404).json({ message: 'Not Found' });

@@ -38,9 +38,9 @@ const TodoSchema = mongoose.Schema({
 UserSchema.methods.serialize = function() {
   return {
     id: this._id,
-    username: this.username,
-    firstName: this.firstName,
-    lastName: this.lastName,
+    username: this.username || '',
+    firstName: this.firstName || '',
+    lastName: this.lastName || '',
     todos: this.todos
   }
 }
@@ -58,7 +58,7 @@ UserSchema.methods.validatePassword = function(password) {
 }
 
 UserSchema.statics.hashPassword = function(password) {
-  return bcrypt.hash(password, 8)
+  return bcrypt.hash(password, 6)
 }
 
 const User = mongoose.model("User", UserSchema)

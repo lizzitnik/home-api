@@ -40,7 +40,7 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
 const jwtStrategy = new JwtStrategy({
     secretOrKey: JWT_SECRET,
 
-    jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('JWT'),
+    jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
 
     algorithm: ['HS256']
   },

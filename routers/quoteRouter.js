@@ -3,7 +3,7 @@ const axios = require("axios")
 const router = express.Router()
 
 
-router.get('/quote', (req, res, next) => {
+router.get('/', (req, res, next) => {
   const QUOTES_URL = 'https://random-quote-generator.herokuapp.com/api/quotes/random'
   axios(`${QUOTES_URL}`, {
     method: "GET",

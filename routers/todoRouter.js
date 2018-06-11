@@ -13,7 +13,7 @@ const jwtAuth = passport.authenticate("jwt", {
 
 const { Todo } = require('../models')
 
-router.get('/todos', (req, res) => {
+router.get('/', (req, res) => {
   Todo.find()
     .then(todos => {
       res.json(todos.map(todo => todo.serialize()))
@@ -26,7 +26,7 @@ router.get('/todos', (req, res) => {
     })
 })
 
-router.get("/todos/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   Todo.findById(req.params.id)
     .then(post => res.json(post.serialize()))
     .catch(err => {
@@ -37,7 +37,7 @@ router.get("/todos/:id", (req, res) => {
     })
 })
 
-router.post("/todos", jwtAuth, (req, res) => {
+router.post("/", jwtAuth, (req, res) => {
   const requiredField = 'value'
   if (!(requiredField in req.body)) {
     const message = `Missing \`${requiredField}\` in request body`
@@ -60,7 +60,7 @@ router.post("/todos", jwtAuth, (req, res) => {
     })
 })
 
-router.put("/todos/:id", (req, res) => {
+router.put("/:id", (req, res) => {
   const updated = {}
   const updatableFields = ["completed"]
   updatableFields.forEach(field => {
@@ -85,7 +85,7 @@ router.put("/todos/:id", (req, res) => {
     })
 })
 
-router.delete("/todos/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
   Todo.findByIdAndRemove(req.params.id)
     .then(() => {
       res.status(204).json({

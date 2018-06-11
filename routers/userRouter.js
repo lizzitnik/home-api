@@ -11,7 +11,7 @@ mongoose.Promise = global.Promise
 
 const { User } = require("../models")
 
-router.post("/users", jsonParser, (req, res) => {
+router.post("/", jsonParser, (req, res) => {
   const requiredFields = ["username", "password"]
   const missingField = requiredFields.find(field => !(field in req.body))
 
@@ -123,7 +123,7 @@ router.post("/users", jsonParser, (req, res) => {
     })
 })
 
-router.get("/users", (req, res) => {
+router.get("/", (req, res) => {
   return User.find()
     .then(users => res.json(users.map(user => user.serialize())))
     .catch(err => res.status(500).json({
