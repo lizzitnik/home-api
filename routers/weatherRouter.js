@@ -16,7 +16,6 @@ const fetchWeather = (res, key) => {
       res.json(data.data)
     })
     .catch(err => {
-      debugger
     })
 }
 
