@@ -115,6 +115,7 @@ router.post("/", jsonParser, (req, res) => {
         lastName
       })
     })
+    .then(res => res.json())
     .then(user => {
       res.status(201).json(user.serialize())
     })
