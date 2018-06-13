@@ -16,7 +16,7 @@ router.post("/", jsonParser, (req, res) => {
   const missingField = requiredFields.find(field => !(field in req.body))
 
   if (missingField) {
-    return res.status(422).json({
+    res.status(422).json({
       code: 422,
       reason: "ValidationError",
       message: "Missing field",
@@ -30,7 +30,7 @@ router.post("/", jsonParser, (req, res) => {
   )
 
   if (nonStringField) {
-    return res.status(422).json({
+    res.status(422).json({
       code: 422,
       reason: "ValidationError",
       message: "Incorrect field type: expected string",
@@ -44,7 +44,7 @@ router.post("/", jsonParser, (req, res) => {
   )
 
   if (nonTrimmedField) {
-    return res.status(422).json({
+    res.status(422).json({
       code: 422,
       reason: "ValidationError",
       message: "Cannot start or end with whitespace",
@@ -74,7 +74,7 @@ router.post("/", jsonParser, (req, res) => {
   )
 
   if (tooSmallField || tooLargeField) {
-    return res.status(422).json({
+    res.status(422).json({
       code: 422,
       reason: "ValidationError",
       message: tooSmallField ?
@@ -92,23 +92,23 @@ router.post("/", jsonParser, (req, res) => {
 
   firstName = firstName.trim()
   lastName = lastName.trim()
-  return User.find({
+   User.find({
       username
     })
     .count()
     .then(count => {
       if (count > 0) {
-        return Promise.reject({
+       Promise.reject({
           code: 422,
           reason: "ValidationError",
           message: "Username already taken",
           location: "username"
         })
       }
-      return User.hashPassword(password)
+      User.hashPassword(password)
     })
     .then(hash => {
-      return User.create({
+      User.create({
         username,
         password: hash,
         firstName,
@@ -116,7 +116,7 @@ router.post("/", jsonParser, (req, res) => {
       })
     })
     .then(user => {
-      return res.status(201).json(user.serialize())
+      res.status(201).json(user.serialize())
     })
     .catch(err => {
       res.send(err)
@@ -124,7 +124,7 @@ router.post("/", jsonParser, (req, res) => {
 })
 
 router.get("/", (req, res) => {
-  return User.find()
+  User.find()
     .then(users => res.json(users.map(user => user.serialize())))
     .catch(err => res.status(500).json({
       message: "Internal server error"
