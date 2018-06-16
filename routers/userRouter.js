@@ -101,7 +101,7 @@ router.post("/", jsonParser, (req, res) => {
           location: "username"
         })
       }
-      User.hashPassword(password)
+      return User.hashPassword(password)
     })
     .then(hash => {
       User.create({
@@ -110,9 +110,11 @@ router.post("/", jsonParser, (req, res) => {
         firstName,
         lastName
       })
-        .then(res => res.json())
         .then(user => {
           res.status(201).json(user.serialize())
+        })
+        .catch(err => {
+          res.send(err)
         })
     })
     .catch(err => {
