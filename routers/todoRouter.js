@@ -38,7 +38,8 @@ router.get("/:id", (req, res) => {
 })
 
 router.post("/", jwtAuth, (req, res) => {
-  const requiredField = 'value'
+  debugger
+  const requiredField = 'input'
   if (!(requiredField in req.body)) {
     const message = `Missing \`${requiredField}\` in request body`
     console.error(message)
@@ -46,10 +47,11 @@ router.post("/", jwtAuth, (req, res) => {
   }
   console.log("rendering req.body" + req.body)
   Todo.create({
-      value: req.body.value,
+      value: req.body.input,
       completed: false
     })
     .then(todo => {
+      debugger
       res.status(201).json(todo.serialize())
     })
     .catch(err => {
