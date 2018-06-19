@@ -1,19 +1,19 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose")
 mongoose.Promise = global.Promise
 
-const express = require('express')
+const express = require("express")
 const router = express.Router()
-const bodyParser = require('body-parser')
-const axios = require('axios')
-const passport = require('passport')
+const bodyParser = require("body-parser")
+const axios = require("axios")
+const passport = require("passport")
 
 const jwtAuth = passport.authenticate("jwt", {
   session: false
 })
 
-const { Todo } = require('../models')
+const { Todo } = require("../models")
 
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   Todo.find()
     .then(todos => {
       res.json(todos.map(todo => todo.serialize()))
@@ -38,7 +38,7 @@ router.get("/:id", (req, res) => {
 })
 
 router.post("/", jwtAuth, (req, res) => {
-  const requiredField = 'value'
+  const requiredField = "todo-input"
   if (!(requiredField in req.body)) {
     const message = `Missing \`${requiredField}\` in request body`
     console.error(message)
@@ -46,9 +46,9 @@ router.post("/", jwtAuth, (req, res) => {
   }
   console.log("rendering req.body" + req.body)
   Todo.create({
-      value: req.body.value,
-      completed: false
-    })
+    value: req.body["todo-input"],
+    completed: false
+  })
     .then(todo => {
       res.status(201).json(todo.serialize())
     })
@@ -68,13 +68,20 @@ router.put("/:id", (req, res) => {
       updated[field] = req.body[field]
     }
   })
-  Todo.findByIdAndUpdate(
-      req.params.id, {
-        $set: updated
-      }, {
-        new: true
-      }
-    )
+  Todo.findById(req.params.id)
+    .then(todo => {
+      return Todo.findByIdAndUpdate(
+        todo._id,
+        {
+          $set: {
+            completed: !todo.completed
+          }
+        },
+        {
+          new: true
+        }
+      )
+    })
     .then(updatedPost => {
       res.status(201).json(updatedPost.serialize())
     })
@@ -87,10 +94,8 @@ router.put("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   Todo.findByIdAndRemove(req.params.id)
-    .then(() => {
-      res.status(204).json({
-        message: "success"
-      })
+    .then(todo => {
+      res.json(todo.serialize())
     })
     .catch(err => {
       console.log(err)
