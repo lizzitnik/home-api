@@ -20,10 +20,12 @@ const UserSchema = mongoose.Schema({
     type: String,
     default: ""
   },
-  todos: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Todo"
-  }]
+  todos: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Todo"
+    }
+  ]
 })
 
 const TodoSchema = mongoose.Schema({
@@ -38,9 +40,9 @@ const TodoSchema = mongoose.Schema({
 UserSchema.methods.serialize = function() {
   return {
     id: this._id,
-    username: this.username || '',
-    firstName: this.firstName || '',
-    lastName: this.lastName || '',
+    username: this.username || "",
+    firstName: this.firstName || "",
+    lastName: this.lastName || "",
     todos: this.todos
   }
 }
