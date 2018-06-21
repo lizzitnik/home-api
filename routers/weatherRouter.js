@@ -2,7 +2,9 @@ const express = require("express")
 const axios = require("axios")
 const router = express.Router()
 
-const API_KEY = "ceed6174e9f6810403c268bc00473430"
+const CLIENT_ID = 'LlBbtSsQo19j5ILXGtecu'
+
+const SECRET_KEY = 'bdLkrSQbNEGSgCUyaqLJfpbHSk8cEmyznxiZtu0R'
 
 // const fetchWeather = (res, key) => {
 //   const WEATHER_URL = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=${APIKEY}`
@@ -21,7 +23,7 @@ const API_KEY = "ceed6174e9f6810403c268bc00473430"
 
 router.get("/location/:lat/:lng", (req, res, next) => {
   const { lat, lng } = req.params
-  const WEATHER_URL = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${API_KEY}`
+  const WEATHER_URL = `https://api.aerisapi.com/forecasts/${lat},${lng}?client_id=${CLIENT_ID}&client_secret=${SECRET_KEY}`
   axios(`${WEATHER_URL}`, {
     method: "GET",
     headers: {
