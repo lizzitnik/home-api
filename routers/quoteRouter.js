@@ -2,9 +2,8 @@ const express = require("express")
 const axios = require("axios")
 const router = express.Router()
 
-
 router.get('/', (req, res, next) => {
-  const QUOTES_URL = 'https://random-quote-generator.herokuapp.com/api/quotes/random'
+  const QUOTES_URL = 'https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en'
   axios(`${QUOTES_URL}`, {
     method: "GET",
     headers: {
@@ -12,7 +11,6 @@ router.get('/', (req, res, next) => {
     }
   })
   .then(data => {
-    console.log(data.data)
     res.send(JSON.stringify(data.data))
   })
   .catch(err => {

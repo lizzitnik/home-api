@@ -19,13 +19,7 @@ const UserSchema = mongoose.Schema({
   lastName: {
     type: String,
     default: ""
-  },
-  todos: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Todo"
-    }
-  ]
+  }
 })
 
 const TodoSchema = mongoose.Schema({
@@ -34,6 +28,10 @@ const TodoSchema = mongoose.Schema({
   },
   completed: {
     type: Boolean
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
   }
 })
 
@@ -42,8 +40,7 @@ UserSchema.methods.serialize = function() {
     id: this._id,
     username: this.username || "",
     firstName: this.firstName || "",
-    lastName: this.lastName || "",
-    todos: this.todos
+    lastName: this.lastName || ""
   }
 }
 
@@ -51,7 +48,8 @@ TodoSchema.methods.serialize = function() {
   return {
     id: this._id,
     value: this.value,
-    completed: this.completed
+    completed: this.completed,
+    userId: this.userId
   }
 }
 

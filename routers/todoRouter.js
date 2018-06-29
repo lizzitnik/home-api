@@ -11,10 +11,10 @@ const jwtAuth = passport.authenticate("jwt", {
   session: false
 })
 
-const { Todo } = require("../models")
+const { Todo, User } = require("../models")
 
-router.get("/", (req, res) => {
-  Todo.find()
+router.get('/', jwtAuth, (req, res) => {
+  Todo.find({userId: req.user.id})
     .then(todos => {
       res.json(todos.map(todo => todo.serialize()))
     })
@@ -47,9 +47,21 @@ router.post("/", jwtAuth, (req, res) => {
   console.log("rendering req.body" + req.body)
   Todo.create({
     value: req.body["todo-input"],
-    completed: false
+    completed: false,
+    userId: req.user.id
+
   })
     .then(todo => {
+      // User.findByIdAndUpdate(
+      //   req.user.id, {
+      //     $push: {
+      //       todos: todo._id
+      //     }
+      //   },
+      //   function(err, model) {
+      //     console.log(err)
+      //   }
+      // )
       res.status(201).json(todo.serialize())
     })
     .catch(err => {
@@ -92,10 +104,11 @@ router.put("/:id", (req, res) => {
     })
 })
 
-router.delete("/:id", (req, res) => {
-  Todo.findByIdAndRemove(req.params.id)
+router.delete("/:id", jwtAuth, (req, res) => {
+  Todo.find({userId: req.user.id, _id: req.params.id})
     .then(todo => {
-      res.json(todo.serialize())
+      res.json(todo[0].serialize())
+      todo[0].remove()
     })
     .catch(err => {
       console.log(err)
