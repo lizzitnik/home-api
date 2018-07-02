@@ -46,9 +46,9 @@ describe('User endpoints', function () {
             firstName,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -70,9 +70,9 @@ describe('User endpoints', function () {
             firstName,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -95,9 +95,9 @@ describe('User endpoints', function () {
             firstName,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -122,9 +122,9 @@ describe('User endpoints', function () {
             firstName,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -149,9 +149,9 @@ describe('User endpoints', function () {
             firstName: 1234,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -176,9 +176,9 @@ describe('User endpoints', function () {
             firstName,
             lastName: 1234
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -203,9 +203,9 @@ describe('User endpoints', function () {
             firstName,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -230,9 +230,9 @@ describe('User endpoints', function () {
             firstName,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -257,9 +257,9 @@ describe('User endpoints', function () {
             firstName,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -284,9 +284,9 @@ describe('User endpoints', function () {
             firstName,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -311,9 +311,9 @@ describe('User endpoints', function () {
             firstName,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -345,9 +345,9 @@ describe('User endpoints', function () {
               lastName
             })
           )
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -379,8 +379,7 @@ describe('User endpoints', function () {
               'id',
               'username',
               'firstName',
-              'lastName',
-              'todos'
+              'lastName'
             );
             expect(res.body.username).to.equal(username);
             expect(res.body.firstName).to.equal(firstName);
@@ -416,8 +415,7 @@ describe('User endpoints', function () {
               'id',
               'username',
               'firstName',
-              'lastName',
-              'todos'
+              'lastName'
             );
             expect(res.body.username).to.equal(username);
             expect(res.body.firstName).to.equal(firstName);
@@ -448,15 +446,13 @@ describe('User endpoints', function () {
             username,
             password,
             firstName,
-            lastName,
-            todos: []
+            lastName
           },
           {
             username: usernameB,
             password: passwordB,
             firstName: firstNameB,
-            lastName: lastNameB,
-            todos: []
+            lastName: lastNameB
           }
         )
           .then(() => chai.request(app).get('/users'))
