@@ -46,9 +46,6 @@ describe('Protected endpoint', function () {
       return chai
         .request(app)
         .get('/protected')
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;
@@ -77,9 +74,6 @@ describe('Protected endpoint', function () {
         .request(app)
         .get('/protected')
         .set('Authorization', `Bearer ${token}`)
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;
@@ -110,9 +104,6 @@ describe('Protected endpoint', function () {
         .request(app)
         .get('/protected')
         .set('authorization', `Bearer ${token}`)
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;

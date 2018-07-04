@@ -60,7 +60,7 @@ describe('Todo endpoints', function () {
             return chai
               .request(app)
               .get("/todos")
-              .set("authorization", `jwt ${token}`)
+              .set('Authorization', `Bearer ${token}`)
               .then(function(_res) {
                 res = _res
                 expect(res).to.have.status(200)
@@ -90,7 +90,7 @@ describe('Todo endpoints', function () {
           })
           .then(user => {
             newTodo = {
-              value: "Walk Dog",
+              'todo-input': "Walk Dog",
               completed: false
             }
           })
@@ -99,16 +99,16 @@ describe('Todo endpoints', function () {
               .request(app)
               .post("/todos")
               .send(newTodo)
-              .set("authorization", `jwt ${token}`)
+              .set('Authorization', `Bearer ${token}`)
               .then(function(res) {
                 expect(res).to.have.status(201)
                 expect(res).to.be.json;
                 expect(res.body).to.be.a('object');
                 expect(res.body).to.include.keys(
                   'id', 'value', 'completed');
-                expect(res.body.value).to.equal(newDog.value);
+                expect(res.body.value).to.equal(newTodo['todo-input']);
                 expect(res.body.id).to.not.be.null;
-                expect(res.body.completed).to.equal(newDog.completed);
+                expect(res.body.completed).to.equal(newTodo.completed);
               })
           })
           .catch(err => {
@@ -118,26 +118,20 @@ describe('Todo endpoints', function () {
     })
 
     describe("PUT", function() {
-      before(function() {
-        Todo.create({
-          value: "Find Cheese",
-          completed: false
-        })
-      })
       it("should update todo on PUT", function() {
         const updateData = {
           completed: true
         }
-
-        return Todo.findOne()
-          .then(function(todo) {
-            updateData.id = todo.id
-            return chai
-              .request(app)
-              .put(`/todos/${todo.id}`)
-              .send(updateData)
-          })
-          .then(function(res) {
+        Todo.create({
+          value: "Find Cheese",
+          completed: false
+        })
+        .then(todo => {
+          return chai.request(app)
+            .put(`/todos/${todo._id}`)
+            .send(updateData)
+        })
+        .then(function(res) {
             expect(res).to.have.status(201)
             expect(res.body.completed).to.equal(true)
           })
@@ -164,19 +158,21 @@ describe('Todo endpoints', function () {
             )
           })
           .then(() => {
-            return Todo.findOne()
-              .set("authorization", `jwt ${token}`)
-              .then(function(_todo) {
-                todo = _todo
-                return chai.request(app).delete(`/todos/${todo.id}`)
-              })
-              .then(function(res) {
-                expect(res).to.have.status(204)
-                expect(res.body).to.be.empty;
-              })
-          })
-          .catch(err => {
-            console.error(err)
+            Todo.create({
+              value: "Find Cheese",
+              completed: false
+            })
+            .then(todo => {
+              return chai.request(app).delete(`/todos/${todo._id}`)
+                .set('Authorization', `Bearer ${token}`)
+            })
+            .then(function(res) {
+              expect(res).to.have.status(204)
+              expect(res.body).to.be.empty;
+            })
+            .catch(err => {
+              console.error(err)
+            })
           })
       })
     })

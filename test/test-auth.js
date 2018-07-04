@@ -46,9 +46,6 @@ describe('Auth endpoints', function () {
       return chai
         .request(app)
         .post('/auth/login')
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;
@@ -63,9 +60,6 @@ describe('Auth endpoints', function () {
         .request(app)
         .post('/auth/login')
         .send({ username: 'wrongUsername', password })
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;
@@ -80,9 +74,6 @@ describe('Auth endpoints', function () {
         .request(app)
         .post('/auth/login')
         .send({ username, password: 'wrongPassword' })
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;
@@ -114,9 +105,6 @@ describe('Auth endpoints', function () {
       return chai
         .request(app)
         .post('/auth/refresh')
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;
@@ -144,9 +132,6 @@ describe('Auth endpoints', function () {
         .request(app)
         .post('/auth/refresh')
         .set('Authorization', `Bearer ${token}`)
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;
@@ -177,9 +162,6 @@ describe('Auth endpoints', function () {
         .request(app)
         .post('/auth/refresh')
         .set('authorization', `Bearer ${token}`)
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;

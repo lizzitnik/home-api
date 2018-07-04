@@ -52,16 +52,6 @@ router.post("/", jwtAuth, (req, res) => {
 
   })
     .then(todo => {
-      // User.findByIdAndUpdate(
-      //   req.user.id, {
-      //     $push: {
-      //       todos: todo._id
-      //     }
-      //   },
-      //   function(err, model) {
-      //     console.log(err)
-      //   }
-      // )
       res.status(201).json(todo.serialize())
     })
     .catch(err => {

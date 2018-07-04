@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --exit",
+    "test": "mocha --exit --inspect",
     "start": "nodemon --inspect server.js",
     "prod": "node server.js"
   },
