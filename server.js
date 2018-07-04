@@ -33,12 +33,6 @@ app.use("/auth", authRouter)
 passport.use(localStrategy)
 passport.use(jwtStrategy)
 
-// app.use(
-//   cors({
-//     origin: 'https://localhost:3000' //domain name
-//   })
-// )
-
 const jwtAuth = passport.authenticate("jwt", {
   session: false
 })

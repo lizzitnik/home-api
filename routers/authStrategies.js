@@ -1,4 +1,3 @@
-require('dotenv').config();
 const { Strategy: LocalStrategy } = require('passport-local')
 
 const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt')
@@ -36,7 +35,7 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
       return callback(err, false)
     })
 })
-
+debugger
 const jwtStrategy = new JwtStrategy({
     secretOrKey: process.env.JWT_SECRET,
 
