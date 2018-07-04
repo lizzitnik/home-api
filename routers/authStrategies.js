@@ -35,7 +35,6 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
       return callback(err, false)
     })
 })
-debugger
 const jwtStrategy = new JwtStrategy({
     secretOrKey: process.env.JWT_SECRET,
 

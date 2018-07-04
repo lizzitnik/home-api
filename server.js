@@ -1,3 +1,4 @@
+'use strict'
 require("dotenv").config()
 
 const bodyParser = require("body-parser")
@@ -23,6 +24,9 @@ app.use(function(req, res, next) {
   next()
 })
 
+passport.use(localStrategy)
+passport.use(jwtStrategy)
+
 app.use(bodyParser.json())
 app.use(weatherRouter)
 app.use("/todos", todoRouter)
@@ -30,8 +34,6 @@ app.use("/users", userRouter)
 app.use("/quote", quoteRouter)
 app.use("/auth", authRouter)
 
-passport.use(localStrategy)
-passport.use(jwtStrategy)
 
 const jwtAuth = passport.authenticate("jwt", {
   session: false
